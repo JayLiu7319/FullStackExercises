@@ -4,12 +4,14 @@ import ReactDOM from 'react-dom'
 const Headline = ({text}) => <h1>{text}</h1>
 
 const Statistics = ({good, neutral, bad}) => {
+  if (good===0 && neutral===0 && bad===0)
+    return (<p>No feedback given</p>)
+
   return (
     <div>
-      <Headline text='statistics' />
-      <Display level='good' sum={good} />
-      <Display level='neutral' sum={neutral} />
-      <Display level='bad' sum={bad} />
+      <Statistic level='good' sum={good} />
+      <Statistic level='neutral' sum={neutral} />
+      <Statistic level='bad' sum={bad} />
       <All good={good} neutral={neutral} bad={bad} />
       <Average good={good} neutral={neutral} bad={bad} />
       <Positive good={good} neutral={neutral} bad={bad} />
@@ -17,7 +19,7 @@ const Statistics = ({good, neutral, bad}) => {
   )
 }
 
-const Display = ({level, sum}) => <p>{level} {sum}</p>
+const Statistic = ({level, sum}) => <p>{level} {sum}</p>
 
 const Button = ({handler, text}) => <button onClick={handler}>{text}</button>
 
@@ -43,6 +45,7 @@ const App = () => {
       <Button handler={HandlerGood} text='good' />
       <Button handler={HandlerNeutral} text='neutral' />
       <Button handler={HandlerBad} text='bad' />
+      <Headline text='statistics' />
       <Statistics good={good} neutral={neutral} bad={bad} />
     </div>
   )
