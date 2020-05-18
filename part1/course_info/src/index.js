@@ -3,6 +3,20 @@ import ReactDOM from 'react-dom'
 
 const Headline = ({text}) => <h1>{text}</h1>
 
+const Statistics = ({good, neutral, bad}) => {
+  return (
+    <div>
+      <Headline text='statistics' />
+      <Display level='good' sum={good} />
+      <Display level='neutral' sum={neutral} />
+      <Display level='bad' sum={bad} />
+      <All good={good} neutral={neutral} bad={bad} />
+      <Average good={good} neutral={neutral} bad={bad} />
+      <Positive good={good} neutral={neutral} bad={bad} />
+    </div>
+  )
+}
+
 const Display = ({level, sum}) => <p>{level} {sum}</p>
 
 const Button = ({handler, text}) => <button onClick={handler}>{text}</button>
@@ -29,13 +43,7 @@ const App = () => {
       <Button handler={HandlerGood} text='good' />
       <Button handler={HandlerNeutral} text='neutral' />
       <Button handler={HandlerBad} text='bad' />
-      <Headline text='statistics' />
-      <Display level='good' sum={good} />
-      <Display level='neutral' sum={neutral} />
-      <Display level='bad' sum={bad} />
-      <All good={good} neutral={neutral} bad={bad} />
-      <Average good={good} neutral={neutral} bad={bad} />
-      <Positive good={good} neutral={neutral} bad={bad} />
+      <Statistics good={good} neutral={neutral} bad={bad} />
     </div>
   )
 }
