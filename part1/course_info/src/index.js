@@ -7,6 +7,12 @@ const Display = ({level, sum}) => <p>{level} {sum}</p>
 
 const Button = ({handler, text}) => <button onClick={handler}>{text}</button>
 
+const All = ({good, neutral, bad}) => <p>all {good + neutral + bad}</p>
+
+const Average = ({good, neutral, bad}) => <p>average {(good - bad)/(good + neutral + bad)}</p>
+
+const Positive = ({good, neutral, bad}) => <p>positive {good*100/(good+neutral+bad)}%</p>
+
 const App = () => {
   // save clicks of each button to own state
   const [good, setGood] = useState(0)
@@ -27,6 +33,9 @@ const App = () => {
       <Display level='good' sum={good} />
       <Display level='neutral' sum={neutral} />
       <Display level='bad' sum={bad} />
+      <All good={good} neutral={neutral} bad={bad} />
+      <Average good={good} neutral={neutral} bad={bad} />
+      <Positive good={good} neutral={neutral} bad={bad} />
     </div>
   )
 }
