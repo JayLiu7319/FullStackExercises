@@ -1,69 +1,36 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
-const Header = (props) => {
-  return (
-    <h1>
-      {props.course}
-    </h1>
-  )
-}
+const Headline = ({text}) => <h1>{text}</h1>
 
-const Content = (props) => {
-  return (
-    <div>
-      <Part part={props.parts[0]}/>
-      <Part part={props.parts[1]}/>
-      <Part part={props.parts[2]}/>
-    </div>
-  )
-}
+const Display = ({level, sum}) => <p>{level} {sum}</p>
 
-
-const Part = (props) => {
-  return (
-    <p>
-      {props.part.name} {props.part.exercises}
-    </p>
-  )
-}
-
-const Total = (props) => {
-  return (
-    <p>
-      Number of exercises {props.parts[0].exercises + 
-      props.parts[1].exercises + 
-      props.parts[2].exercises}
-    </p>
-  )
-}
+const Button = ({handler, text}) => <button onClick={handler}>{text}</button>
 
 const App = () => {
-  const course = {
-    name: 'Half Stack application development',
-    parts: [
-      {
-        name: 'Fundamentals of React',
-        exercises: 10
-      },
-      {
-        name: 'Using props to pass data',
-        exercises: 7
-      },
-      {
-        name: 'State of a component',
-        exercises: 14
-      }
-    ]
-  }
+  // save clicks of each button to own state
+  const [good, setGood] = useState(0)
+  const [neutral, setNeutral] = useState(0)
+  const [bad, setBad] = useState(0)
+
+  const HandlerGood = () => setGood(good+1)
+  const HandlerNeutral = () => setNeutral(neutral+1)
+  const HandlerBad = () => setBad(bad+1) 
 
   return (
     <div>
-      <Header course={course.name}/>
-      <Content parts={course.parts}/>
-      <Total parts={course.parts}/>
+      <Headline text={'give feedback'} />
+      <Button handler={HandlerGood} text='good' />
+      <Button handler={HandlerNeutral} text='neutral' />
+      <Button handler={HandlerBad} text='bad' />
+      <Headline text='statistics' />
+      <Display level='good' sum={good} />
+      <Display level='neutral' sum={neutral} />
+      <Display level='bad' sum={bad} />
     </div>
   )
 }
 
-ReactDOM.render(<App />, document.getElementById('root'))
+ReactDOM.render(<App />, 
+  document.getElementById('root')
+)
