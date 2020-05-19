@@ -20,15 +20,39 @@ const Statistics = ({good, neutral, bad}) => {
   )
 }
 
-const Statistic = ({level, sum}) => <tr><td>{level}</td><td>{sum}</td></tr>
+const Statistic = ({level, sum}) => 
+  <tbody>
+    <tr>
+      <td>{level}</td>
+      <td>{sum}</td>
+    </tr>
+  </tbody> 
+
+const All = ({good, neutral, bad}) => 
+  <tbody>
+    <tr>
+      <td>all</td>
+      <td>{good + neutral + bad}</td>
+    </tr>
+  </tbody> 
+
+const Average = ({good, neutral, bad}) => 
+  <tbody>
+    <tr>
+      <td>average</td>
+      <td>{(good - bad)/(good + neutral + bad)}</td>
+    </tr>
+  </tbody> 
+
+const Positive = ({good, neutral, bad}) => 
+  <tbody>
+    <tr>
+      <td>positive</td>
+      <td>{good*100/(good+neutral+bad)}%</td>
+    </tr>
+  </tbody> 
 
 const Button = ({handler, text}) => <button onClick={handler}>{text}</button>
-
-const All = ({good, neutral, bad}) => <tr><td>all</td><td>{good + neutral + bad}</td></tr>
-
-const Average = ({good, neutral, bad}) => <tr><td>average</td><td>{(good - bad)/(good + neutral + bad)}</td></tr>
-
-const Positive = ({good, neutral, bad}) => <tr><td>positive</td><td>{good*100/(good+neutral+bad)}%</td></tr>
 
 const App = () => {
   // save clicks of each button to own state
