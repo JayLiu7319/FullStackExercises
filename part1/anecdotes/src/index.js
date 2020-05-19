@@ -2,16 +2,35 @@ import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
 const Button = ({handler, text}) => <button onClick={handler}>{text}</button>
+const DisplayVote = ({vote}) => <p>has {vote} votes</p>
+const Headline = ({text}) => <h1>{text}</h1>
+const DisplayAnec = ({anecdotes, index}) => <p>{anecdotes[index]}</p>
 
 const App = (props) => {
   const [selected, setSelected] = useState(0)
+  const [votes, setVotes] = useState([0, 0, 0, 0, 0, 0])
+  const [max_index, setMax] = useState(0)
 
-  const handler = () => setSelected(Math.floor(Math.random()*6))
-
+  const handlerNext = () => setSelected(Math.floor(Math.random()*6))
+  const handlerVote = () => {
+    const copy = [...votes]
+    copy[selected] += 1
+    if(copy[selected] > copy[max_index]) {
+      setMax(selected)
+    }
+    setVotes(copy)
+  }
+  
   return (
     <div>
-      <p>{props.anecdotes[selected]}</p>
-      <Button handler={handler} text="next anecdote" />
+      <Headline text="Anecdote of the day" />
+      <DisplayAnec anecdotes={props.anecdotes} index={selected} />
+      <DisplayVote vote={votes[selected]} />
+      <Button handler={handlerNext} text="next anecdote" />
+      <Button handler={handlerVote} text="vote" />
+      <Headline text="Anecdote with most votes" />
+      <DisplayAnec anecdotes={props.anecdotes} index={max_index} />
+      <DisplayVote vote={votes[max_index]} />
     </div>
   )
 }
